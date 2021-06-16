@@ -1,4 +1,16 @@
+#layout
+{
+    display: flex;
+}
+
 .footer
 {
     align-self: flex-end;
+}
+
+.content-layout
+{
+min-height: 850px;
+  padding: 24px;
+  background: #fff;
 }

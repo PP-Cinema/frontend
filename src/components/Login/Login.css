@@ -1,0 +1,26 @@
+#layout
+{
+    display: flex;
+    justify-content: center;
+}
+
+.login-content
+{
+  display: flex;
+  min-height: 850px;
+  padding: 24px;
+  background: #fff;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form-layout
+{
+    max-width: 400px;
+}
+
+.footer
+{
+    align-self: flex-end;
+}

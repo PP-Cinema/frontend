@@ -1,6 +1,6 @@
 import './App.css';
 import {Home} from './components';
-// import {Login} from './components/Login/Login';
+import {Login} from './components';
 // import {Panel} from './components/Panel/Panel'; 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {PATHS} from './strings';
@@ -13,10 +13,10 @@ const App = () => {
           <Route exact path={PATHS.HOMEPAGE}>
             <Home />
           </Route>
-          {/* <Route path={PATHS.LOGIN}>
+          <Route path={PATHS.LOGIN}>
             <Login />
           </Route>
-          <Route path={PATHS.EMPLOYEE_PANEL}>
+          {/*<Route path={PATHS.EMPLOYEE_PANEL}>
             <Panel />
           </Route>*/ } 
         </Switch>
