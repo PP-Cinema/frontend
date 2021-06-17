@@ -1,7 +1,6 @@
 
-import {Navbar} from './Navbar';
+import {Navbar, Footer} from '../../miscellanous';
 import {Layout} from 'antd';
-import {Footer} from '../../miscellanous/Footer';
 import './Home.css';
 
 const {Content} = Layout;
@@ -9,7 +8,7 @@ const {Content} = Layout;
 const Home = () => {
     return(
         <Layout className = "layout">
-            <Navbar/>
+            <Navbar type="Home"/>
             <Content style = {{ padding: '0 50px' }}>
                 <div className="content-layout">
                     <h1>Work in progress</h1>

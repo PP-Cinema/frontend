@@ -1,5 +1,5 @@
 import {PageHeader,Layout} from 'antd';
-import {Footer} from '../../miscellanous/Footer';
+import {Footer} from '../../miscellanous';
 import { LoginForm } from './LoginForm';
 import './Login.css';
 
