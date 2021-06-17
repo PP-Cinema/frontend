@@ -31,3 +31,24 @@ export const REQUEST_STATUS =
     SUCCESS: "SUCCESS",
     ERROR: "ERROR"
 }
+export const HOME_KEYS = 
+[
+    {key:"performances", value:"Seanse"},
+    {key:"news", value:"Newsy"},
+    {key:"movies", value:"Filmy"},
+    {key:"reservations", value:"Rezerwacje"}
+];
+
+export const ADMIN_MODES =
+[
+    {key: "add-employee", value: "Add Employee"}
+];
+
+export const EMPLOYEE_MODES =
+[
+    {key: "add-article", value: "New Article"},
+    {key: "add-movie", value: "New Movie"},
+    {key: "delete-movie", value: "Remove Movie"},
+    {key: "add-performance", value: "New Performance"},
+    {key: "delete-performance", value: "Remove Performance"}
+]
