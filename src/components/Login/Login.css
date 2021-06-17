@@ -15,11 +15,6 @@
   flex-direction: column;
 }
 
-.form-layout
-{
-    max-width: 400px;
-}
-
 .footer
 {
     align-self: flex-end;
