@@ -2,7 +2,8 @@ import './App.css';
 import {Home,Login, Panel} from './components';
 import { UserContextProvider } from './contexts';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import {PATHS} from './strings';
+import {PATHS,EMPLOYEE_MODES} from './strings';
+import { AddEmployee } from './components/Modes';
 
 const App = () => {
   return (
@@ -16,9 +17,12 @@ const App = () => {
             <Route path={PATHS.LOGIN}>
               <Login />
             </Route>
-            <Route path={PATHS.EMPLOYEE_PANEL}>
+            <Route exact path={PATHS.EMPLOYEES}>
               <Panel />
             </Route>
+            <Route path={EMPLOYEE_MODES.find(({key}) => key==='add-employee').path}>
+              <AddEmployee />
+            </Route> 
           </Switch>
         </BrowserRouter>
       </UserContextProvider>

@@ -1,5 +1,5 @@
-import {PageHeader,Layout} from 'antd';
-import {Footer} from '../../miscellanous';
+import {Layout, Card} from 'antd';
+import {Footer,Header} from '../../miscellanous';
 import { LoginForm } from './LoginForm';
 import './Login.css';
 
@@ -10,11 +10,12 @@ const Login = () =>
 {
     return(
         <Layout className ="layout">
-            <PageHeader title="Superkino Employee Login Panel" style ={{background:'darkgrey'}}/>
+            <Header type="Login"/>
             <Content style={{ padding: '0 50px' }}>
                 <div className="login-content">
-                    <h3>Please put your credentials in order to access the maintenance</h3>
+                <Card title="Please put your credentials" style={{width: 500}}>
                     <LoginForm/>
+                </Card>
                 </div>
             </Content>
             <Footer className="footer"/>

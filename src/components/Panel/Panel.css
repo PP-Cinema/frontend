@@ -1,0 +1,9 @@
+.content-layout
+{
+  min-height: 850px;
+  padding: 0px 24px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

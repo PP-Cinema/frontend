@@ -1,7 +1,7 @@
 import { Layout } from 'antd';
 import { useContext } from 'react';
 import { Redirect } from 'react-router';
-import { Navbar, Footer} from '../../miscellanous';
+import { Navbar, Footer, Header} from '../../miscellanous';
 import { UserContext} from '../../contexts';
 import { PATHS } from '../../strings';
 import './Panel.css'
@@ -19,8 +19,9 @@ const Panel = () =>
     {
         return(
             <Layout>
+                <Header type="Panel"/>
                 <Navbar type={role}/>
-                <Content>
+                <Content className="content-layout">
 
                 </Content>
                 <Footer/>
