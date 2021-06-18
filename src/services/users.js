@@ -22,6 +22,24 @@ class UserService
             return {status: REQUEST_STATUS.ERROR, error};
         }
     }
+    static async createUser(login,password,isAdmin)
+    {
+        try
+        {
+            const data = await axios.post(ENDPOINT.employees,
+                {
+                    login,
+                    password,
+                    isAdmin
+                });
+            return {status: REQUEST_STATUS.SUCCESS, data};
+        }
+        catch(error)
+        {
+            console.log(error);
+            return {status: REQUEST_STATUS.ERROR, error}
+        }
+    }
 }
 
 export default UserService;

@@ -1,0 +1,12 @@
+.header
+{
+    display: flex;
+    background: #111d2c;
+    color: #ffffff;
+    min-height: 75px;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: large;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-indent: 10px;
+};

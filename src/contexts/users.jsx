@@ -1,6 +1,7 @@
 import React, {useCallback, useState} from "react";
 import axios from "axios";
 import { UserService } from "../services";
+import { displayNotification } from "../miscellanous";
 
 const DefaultState = () =>
 ({
@@ -27,13 +28,24 @@ const UserContextProvider = ({children}) =>
             localStorage.setItem('role',result.data.data.role);
             axios.defaults.headers.common.Authorization = `Bearer ${result.data.data.accessToken}`;
             setState(result.data.data);
+            displayNotification('success','Success','Login successful');
             return true;
         }
+        displayNotification('error','Error','Authorization failed');
         return false;
     },[]);
 
+    const signOut = useCallback(() => {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('role');
+        axios.defaults.headers.common.Authorization = undefined;
+        setState(DefaultState());
+        displayNotification('success','Success','Successfully signed out!');
+    },[]);
+
     return (
-        <UserContext.Provider value={{...state,signIn}}>
+        <UserContext.Provider value={{...state,signIn,signOut}}>
             {children}
         </UserContext.Provider>
     );

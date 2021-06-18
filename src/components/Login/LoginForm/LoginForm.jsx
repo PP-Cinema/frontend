@@ -26,13 +26,9 @@ const LoginForm = () =>
     const history = useHistory();
     const onFinish = async values =>
     {
-        console.log(values);
-        console.log(signIn);
-        console.log(values.login);
-
         if(await signIn(values.login,values.password))
         {
-            history.push(PATHS.EMPLOYEE_PANEL);
+            history.push(PATHS.EMPLOYEES);
         }
     }
 
