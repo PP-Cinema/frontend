@@ -3,7 +3,7 @@ import {Home,Login, Panel} from './components';
 import { UserContextProvider } from './contexts';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {PATHS,EMPLOYEE_MODES} from './strings';
-import { AddEmployee, AddArticle, AddMovie } from './components/Modes';
+import { AddEmployee, AddArticle, AddMovie, ViewEmployees } from './components/Modes';
 
 
 const App = () => {
@@ -35,6 +35,9 @@ const App = () => {
             </Route>
             <Route path={EMPLOYEE_MODES.find(({key}) => key==='add-employee').path}>
               <AddEmployee />
+            </Route>
+            <Route path={EMPLOYEE_MODES.find(({key})=> key==='view-employees').path}>
+              <ViewEmployees/>
             </Route>
             <Route path={EMPLOYEE_MODES.find(({key})=> key==='add-article').path}>
               <AddArticle/>
