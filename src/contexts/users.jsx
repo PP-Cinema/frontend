@@ -3,19 +3,25 @@ import axios from "axios";
 import { UserService } from "../services";
 import { displayNotification } from "../miscellanous";
 
-const DefaultState = () =>
+
+const DefaultState =
 ({
     accessToken: localStorage.getItem('accessToken'),
     refreshToken: localStorage.getItem('refreshToken'),
     role: localStorage.getItem('role') 
 });
 
+if(DefaultState.accessToken)
+{
+    console.log(DefaultState.accessToken);
+    axios.defaults.headers.common.Authorization = `Bearer ${DefaultState.accessToken}`;
+}
 
-const UserContext = React.createContext(DefaultState());
+const UserContext = React.createContext(DefaultState);
 
 const UserContextProvider = ({children}) => 
 {
-    const [state,setState] = useState(DefaultState());
+    const [state,setState] = useState(DefaultState);
     const signIn = useCallback(async (login,password) => 
     {
         const result = await UserService.signIn(login,password);
@@ -40,7 +46,10 @@ const UserContextProvider = ({children}) =>
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('role');
         axios.defaults.headers.common.Authorization = undefined;
-        setState(DefaultState());
+        DefaultState.accessToken='';
+        DefaultState.refreshToken='';
+        DefaultState.role='';
+        setState(DefaultState);
         displayNotification('success','Success','Successfully signed out!');
     },[]);
 

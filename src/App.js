@@ -3,7 +3,8 @@ import {Home,Login, Panel} from './components';
 import { UserContextProvider } from './contexts';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {PATHS,EMPLOYEE_MODES} from './strings';
-import { AddEmployee } from './components/Modes';
+import { AddEmployee, AddArticle } from './components/Modes';
+
 
 const App = () => {
   return (
@@ -22,6 +23,9 @@ const App = () => {
             </Route>
             <Route path={EMPLOYEE_MODES.find(({key}) => key==='add-employee').path}>
               <AddEmployee />
+            </Route>
+            <Route path={EMPLOYEE_MODES.find(({key})=> key==='add-article').path}>
+              <AddArticle/>
             </Route> 
           </Switch>
         </BrowserRouter>

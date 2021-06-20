@@ -1,17 +1,16 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, /*useState*/} from 'react';
 import { Menu } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons'
 import { UserContext } from '../../contexts';
 import { useHistory, useLocation } from 'react-router-dom';
 import './Navbar.css';
-import { HOME_KEYS,EMPLOYEE_MODES, PATHS } from '../../strings';
+import { HOME_KEYS,EMPLOYEE_MODES, PATHS, PANEL_TYPES } from '../../strings';
 
-
+const {SubMenu} = Menu;
 
 const Navbar = (props) =>
 {
     const location = useLocation();
-    const [current, setCurrent] = useState();
     const {signOut} = useContext(UserContext);
     const history = useHistory();
     let content;
@@ -22,7 +21,6 @@ const Navbar = (props) =>
         {
             return signOut();
         }
-        setCurrent(values.key);
         switch(props.type)
         {
             case 'Home':
@@ -62,27 +60,53 @@ const Navbar = (props) =>
             const menuList = HOME_KEYS.map((hk) => <Menu.Item key={hk.key}>{hk.value}</Menu.Item>)
             content = 
             (
-                <Menu className = "navbar-menu" onClick={onClick} selectedKeys ={current ? current : HOME_KEYS[0].key} mode ="horizontal" theme="dark">
+                <Menu className = "navbar-menu" onClick={onClick} selectedKeys ={HOME_KEYS.find(({path}) => path===location.pathname) ? 
+                HOME_KEYS.find(({path}) => path===location.pathname).key 
+                 : HOME_KEYS[0].key} mode ="horizontal" theme="dark">
                     {menuList}
                 </Menu>
             );
             break;
         case 'Admin':
-            const aEmployeeList = EMPLOYEE_MODES.map((em)=> <Menu.Item key={em.key}>{em.value}</Menu.Item>);
+            const adminMenu =[];
+            PANEL_TYPES.forEach((pt) => {
+                const typeList = EMPLOYEE_MODES.filter(({type}) => type===pt.key);
+                const finalList = typeList.map((tl) => <Menu.Item key={tl.key}>{tl.value}</Menu.Item>)
+                adminMenu.push(<SubMenu key={pt.key} title={pt.name}>
+                    {finalList}
+                </SubMenu>)
+            })
             content =
             (
-                <Menu className = "navbar-menu" onClick={onClick} selectedKeys = {current} mode ="horizontal" theme="dark">
-                    {aEmployeeList}
+                <Menu className = "navbar-menu" onClick={onClick} selectedKeys = {EMPLOYEE_MODES.find(({path}) => path===location.pathname) ? 
+                EMPLOYEE_MODES.find(({path}) => path===location.pathname).key 
+                : ''
+                } 
+                mode ="horizontal" theme="dark">
+                    {adminMenu}
                     <Menu.Item key="sign-out" icon={<LogoutOutlined/>}>Sign out</Menu.Item>
                 </Menu>
             );
             break;
         case 'Employee':
-            const employeeList = EMPLOYEE_MODES.map((em)=> em.role === 'Employee' ? <Menu.Item key={em.key}>{em.value}</Menu.Item> : '');
+            const employeeMenu =[];
+            PANEL_TYPES.forEach((pt) => {
+                if(pt.key === 'Employee')
+                    return;
+                const typeList = EMPLOYEE_MODES.filter(({type}) => type===pt.key);
+                const finalList = typeList.map((tl) => tl.role==='Employee' ? <Menu.Item key={tl.key}>{tl.value}</Menu.Item> : '');
+                employeeMenu.push(<SubMenu key={pt.key} title={pt.name}>
+                    {finalList}
+                </SubMenu>)
+            })
             content =
             (
-                <Menu className = "navbar-menu" onClick={onClick} selectedKeys ={current} mode ="horizontal" theme="dark">
-                    {employeeList}
+                <Menu className = "navbar-menu" onClick={onClick} selectedKeys = {EMPLOYEE_MODES.find(({path}) => path===location.pathname) ? 
+                EMPLOYEE_MODES.find(({path}) => path===location.pathname).key 
+                : ''
+                } 
+                mode ="horizontal" theme="dark">
+                    {employeeMenu}
                     <Menu.Item key="sign-out" icon={<LogoutOutlined/>}>Sign out</Menu.Item>
                 </Menu>
             );
