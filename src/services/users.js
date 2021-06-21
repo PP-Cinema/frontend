@@ -40,6 +40,32 @@ class UserService
             return {status: REQUEST_STATUS.ERROR, error}
         }
     }
+    static async getEmployees()
+    {
+        try
+        {
+            const res = await axios.get(ENDPOINT.employees);
+            const data = res.data;
+            return {status: REQUEST_STATUS.SUCCESS, data}
+        }
+        catch(error)
+        {
+            return {status: REQUEST_STATUS.ERROR, error}
+        }
+    }
+    static async deleteEmployee(id)
+    {
+        try
+        {
+            const res = await axios.delete(ENDPOINT.employees+`/${id}`);
+            return {status: REQUEST_STATUS.SUCCESS, res}
+        }
+        catch(error)
+        {
+            console.log(error);
+            return {status: REQUEST_STATUS.ERROR, error}
+        }
+    }
 }
 
 export default UserService;

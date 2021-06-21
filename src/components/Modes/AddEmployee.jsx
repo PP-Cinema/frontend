@@ -3,7 +3,7 @@ import {Layout,Card, Form, Input, Button, Checkbox} from 'antd';
 import { Header,Navbar,Footer } from '../../miscellanous';
 import { UserContext } from '../../contexts';
 import { Redirect, useHistory } from 'react-router';
-import { PATHS, REQUEST_STATUS } from '../../strings';
+import { PATHS, REQUEST_STATUS, EMPLOYEE_MODES } from '../../strings';
 import { displayNotification } from '../../miscellanous';
 import { UserService } from '../../services';
 import '../Panel/Panel.css';
@@ -25,12 +25,12 @@ const AddEmployee = () =>
         if(status === REQUEST_STATUS.SUCCESS)
         {
             displayNotification('success','Success','Successfully added new employee');
-            history.push(PATHS.EMPLOYEES);
+            history.push(EMPLOYEE_MODES.find(({key}) => key==='view-employees').path);
         }
         else
         {
              displayNotification('error','Error',`Request failure: ${error.message}`);
-             history.push(PATHS.EMPLOYEES);
+             history.push(EMPLOYEE_MODES.find(({key}) => key==='view-employees').path);
         }
     }
 

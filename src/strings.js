@@ -77,6 +77,7 @@ export const PANEL_TYPES =
 export const EMPLOYEE_MODES =
 [
     {key: "add-employee", value: "Add Employee", path: PATH(PATHS.EMPLOYEES,'add'), role: 'Admin', type: 'Employee'},
+    {key: "view-employees", value: "View Employees", path: PATH(PATHS.EMPLOYEES,'manage'),role: 'Admin', type: 'Employee'},
     {key: "add-article", value: "New Article",path: PATH(PATHS.ARTICLES,'add'), role: 'Employee', type: 'Articles'},
     {key: "add-movie", value: "New Movie", path: PATH(PATHS.MOVIES,'add'), role: 'Employee', type: 'Movies'},
     {key: "delete-movie", value: "Remove Movie", path: PATH(PATHS.MOVIES,'delete'), role: 'Employee', type: 'Movies'},
