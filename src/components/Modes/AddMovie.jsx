@@ -3,7 +3,7 @@ import {Layout, Form, Card, Input, Upload, Button, InputNumber, message} from 'a
 import { Header,Navbar,Footer, displayNotification} from '../../miscellanous';
 import { UserContext } from '../../contexts';
 import { Redirect, useHistory } from 'react-router';
-import { PATHS,REQUEST_STATUS } from '../../strings';
+import { EMPLOYEE_MODES, PATHS,REQUEST_STATUS } from '../../strings';
 import { InboxOutlined } from '@ant-design/icons';
 import { MovieService } from '../../services';
 import '../Panel/Panel.css';
@@ -31,17 +31,18 @@ const AddMovie = () =>
     {
         console.log(values);
         if(!values.description) values.description='';
-        const {status,error} = await MovieService.addMovie(values.title,values.length,values.description,values.poster.file.originFileObj);
+        if(!values.abstract) values.abstract='';
+        const {status,error} = await MovieService.addMovie(values.title,values.length,values.abstract,values.description,values.poster.file.originFileObj);
         if(status === REQUEST_STATUS.SUCCESS)
         {
             displayNotification('success','Success','New movie has been added successfully');
-            history.push(PATHS.EMPLOYEES);
+            history.push(EMPLOYEE_MODES.find(({key})=>key==='view-movies').path);
         }
         else
         {
             console.log(error);
             displayNotification('error','Error',`${error}`);
-            history.push(PATHS.EMPLOYEES);
+            history.push(EMPLOYEE_MODES.find(({key})=>key==='view-movies').path);
         }
     }
 
@@ -71,6 +72,12 @@ const AddMovie = () =>
                                 rules={[{ required: true, message: 'Please put the duration of the movie!' }]}  
                             >
                             <InputNumber min={1} max={512}/>
+                            </Form.Item>
+                            <Form.Item 
+                                label="Abstract"
+                                name="abstract"
+                            >
+                            <Input.TextArea defaultValue='' maxLength={80}/>
                             </Form.Item>
                             <Form.Item 
                                 label="Description"

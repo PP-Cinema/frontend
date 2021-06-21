@@ -31,6 +31,7 @@ export const ENDPOINT =
     articles: URL(CONTROLLERS.articles,''),
     employees: URL(CONTROLLERS.employees,''),
     movies: URL(CONTROLLERS.movies,''),
+    moviesAll: URL(CONTROLLERS.movies,'all'),
     performances: URL(CONTROLLERS.performances,'')
 
 }
@@ -80,7 +81,7 @@ export const EMPLOYEE_MODES =
     {key: "view-employees", value: "View Employees", path: PATH(PATHS.EMPLOYEES,'manage'),role: 'Admin', type: 'Employee'},
     {key: "add-article", value: "New Article",path: PATH(PATHS.ARTICLES,'add'), role: 'Employee', type: 'Articles'},
     {key: "add-movie", value: "New Movie", path: PATH(PATHS.MOVIES,'add'), role: 'Employee', type: 'Movies'},
-    {key: "delete-movie", value: "Remove Movie", path: PATH(PATHS.MOVIES,'delete'), role: 'Employee', type: 'Movies'},
+    {key: "view-movies", value: "View Movies", path: PATH(PATHS.MOVIES,'manage'), role: 'Employee', type: 'Movies'},
     {key: "add-performance", value: "New Performance", path: PATH(PATHS.PERFORMANCES,'add'), role: 'Employee', type: 'Performances'},
     {key: "delete-performance", value: "Remove Performance", path: PATH(PATHS.PERFORMANCES,'delete'), role: 'Employee', type: 'Performances'}
 ];

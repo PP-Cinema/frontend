@@ -19,7 +19,8 @@ const Navbar = (props) =>
     {
         if(values.key === "sign-out")
         {
-            return signOut();
+            signOut();
+            return history.push(PATHS.HOMEPAGE);
         }
         switch(props.type)
         {
