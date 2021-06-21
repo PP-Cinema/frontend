@@ -21,6 +21,20 @@ class MovieService
             return {status: REQUEST_STATUS.ERROR, error};
         }
     }
+    static async getAllMovies()
+    {
+        try
+        {
+            const res = await axios.get(ENDPOINT.movies);
+            const data = res.data;
+            return {status: REQUEST_STATUS.SUCCESS, data}
+        }
+        catch(error)
+        {
+            console.log(error);
+            return {status: REQUEST_STATUS.ERROR, error};
+        }
+    }
 }
 
 export default MovieService;

@@ -3,7 +3,7 @@ import {Layout, Form, Card, Input, Upload, Button, InputNumber, message} from 'a
 import { Header,Navbar,Footer, displayNotification} from '../../miscellanous';
 import { UserContext } from '../../contexts';
 import { Redirect, useHistory } from 'react-router';
-import { PATHS,REQUEST_STATUS } from '../../strings';
+import { EMPLOYEE_MODES, PATHS,REQUEST_STATUS } from '../../strings';
 import { InboxOutlined } from '@ant-design/icons';
 import { MovieService } from '../../services';
 import '../Panel/Panel.css';
@@ -35,13 +35,13 @@ const AddMovie = () =>
         if(status === REQUEST_STATUS.SUCCESS)
         {
             displayNotification('success','Success','New movie has been added successfully');
-            history.push(PATHS.EMPLOYEES);
+            history.push(EMPLOYEE_MODES.find(({key})=>key==='view-movies').path);
         }
         else
         {
             console.log(error);
             displayNotification('error','Error',`${error}`);
-            history.push(PATHS.EMPLOYEES);
+            history.push(EMPLOYEE_MODES.find(({key})=>key==='view-movies').path);
         }
     }
 
