@@ -31,7 +31,8 @@ const AddMovie = () =>
     {
         console.log(values);
         if(!values.description) values.description='';
-        const {status,error} = await MovieService.addMovie(values.title,values.length,values.description,values.poster.file.originFileObj);
+        if(!values.abstract) values.abstract='';
+        const {status,error} = await MovieService.addMovie(values.title,values.length,values.abstract,values.description,values.poster.file.originFileObj);
         if(status === REQUEST_STATUS.SUCCESS)
         {
             displayNotification('success','Success','New movie has been added successfully');
@@ -71,6 +72,12 @@ const AddMovie = () =>
                                 rules={[{ required: true, message: 'Please put the duration of the movie!' }]}  
                             >
                             <InputNumber min={1} max={512}/>
+                            </Form.Item>
+                            <Form.Item 
+                                label="Abstract"
+                                name="abstract"
+                            >
+                            <Input.TextArea defaultValue='' maxLength={80}/>
                             </Form.Item>
                             <Form.Item 
                                 label="Description"

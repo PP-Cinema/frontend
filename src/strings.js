@@ -31,6 +31,7 @@ export const ENDPOINT =
     articles: URL(CONTROLLERS.articles,''),
     employees: URL(CONTROLLERS.employees,''),
     movies: URL(CONTROLLERS.movies,''),
+    moviesAll: URL(CONTROLLERS.movies,'all'),
     performances: URL(CONTROLLERS.performances,'')
 
 }

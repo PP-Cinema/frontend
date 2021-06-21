@@ -1,11 +1,12 @@
 import React, {useContext, useState, useEffect} from "react";
 import { Redirect, useHistory } from "react-router";
-import { Navbar,Header,Footer } from "../../miscellanous";
+import { Navbar,Header,Footer, displayNotification } from "../../miscellanous";
 import { UserContext } from "../../contexts";
-import { PATHS, EMPLOYEE_MODES } from "../../strings";
-import { Layout, Space, Card, Button } from "antd";
+import { PATHS, EMPLOYEE_MODES, REQUEST_STATUS } from "../../strings";
+import { Layout, Space, Card, Button, Popconfirm,message, Pagination } from "antd";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { MovieService } from "../../services";
+import '../Panel/Panel.css';
 
 const {Content} = Layout;
 const {Meta} = Card;
@@ -16,14 +17,39 @@ const ViewMovies = () =>
     const {accessToken, role} = useContext(UserContext);
     const [movies,setMovies] = useState([]);
     const [refresh,setRefresh] = useState();
+    const [page,setPage] = useState(1);
+    const [totalCount,setTotalCount] = useState(0);
+    const itemsPerPage = 4;
 
     const getMovies = async()=>
     {
-        const {data} = await MovieService.getAllMovies();
+        console.log(page);
+        const {data} = await MovieService.getPages((page-1),itemsPerPage);
+        console.log(data);
         setMovies(data);
     }
 
-    //useEffect(() => {getMovies()},[refresh]);
+    const getCount = async()=>
+    {
+        const {data} = await MovieService.getTotalCount(itemsPerPage);
+        setTotalCount(data);
+    }
+
+    const onDeleteClick = async (id) =>
+    {
+        const {status,error} = await MovieService.deleteMovie(id);
+        if(status === REQUEST_STATUS.SUCCESS)
+        {
+            displayNotification('success','Success','Successfully deleted the user');
+        }
+        else
+        {
+            displayNotification('error', 'Error',`${error}`);
+        }
+        setRefresh({});
+    }
+
+    useEffect(() => {getCount(); getMovies()},[refresh,page]);
 
     if(!accessToken)
     {
@@ -32,16 +58,19 @@ const ViewMovies = () =>
     else
     {
         const movieCards = movies.map((m)=>(
-            <Card 
+            <Card
+                key={m.id} 
                 style={{width:300}} 
-                cover={<img src={m.posterFilePath} alt='Missing poster'/>}
+                cover={<img src={m.posterFilePath} height={200} width={200} alt='Missing poster'/>}
                 actions={[
-                    <DeleteOutlined key='delete' danger disabled/>,
-                    <EditOutlined key='edit' disabled/>,
-                    <PlusOutlined key='performance' disabled/>
+                    <Popconfirm title='Are you sure you want to delete this movie?' okText='Yes' cancelText='No' onCancel={() => message.info('Cancelled deleting',3)} onConfirm={()=> {onDeleteClick(m.id)}}>
+                        <DeleteOutlined key='delete' danger={true}/>
+                    </Popconfirm>,
+                    <EditOutlined key='edit'/>,
+                    <PlusOutlined key='performance'/>
                 ]}
                 >
-                    <Meta title={m.title} description={`Length: ${m.length}\n Description: ${m.description ? `${m.description}`: ''}`} />
+                    <Meta title={m.title} style={{whiteSpace:'pre-wrap'}}description={`Length: ${m.length} \n ${m.abstract ? `${m.abstract}`: ''}`} />
             </Card>
         ));
         return(
@@ -50,13 +79,16 @@ const ViewMovies = () =>
                 <Navbar type={role}/>
                 <Content className="content-layout" style={{display:'flex',alignItems:'flex-start', paddingTop: 50}}>
                     <Space size='large' wrap>
-                        <Card key='Add new' bordered={false}>
-                            {movieCards}
-                            <Button type='dashed' icon={<PlusOutlined/>} onClick={() => history.push(EMPLOYEE_MODES.find(({key}) => key==='add-movie').path)}>
-                                Add new movie
-                            </Button>
-                        </Card>
+                        {movieCards}
+                        { page === totalCount ?
+                            <Card key='Add new' bordered={false}>
+                                <Button type='dashed' icon={<PlusOutlined/>} onClick={() => history.push(EMPLOYEE_MODES.find(({key}) => key==='add-movie').path)}>
+                                    Add new movie
+                                </Button>
+                            </Card> : ''
+                        }
                     </Space>
+                    <Pagination style={{alignSelf:'flex-end'}} defaultCurrent={page} defaultPageSize={itemsPerPage} total={totalCount*itemsPerPage} onChange={async value=>{ setPage(value);}}/>
                 </Content>
                 <Footer/>
             </Layout>
