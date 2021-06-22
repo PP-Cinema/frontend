@@ -3,7 +3,7 @@ import {Layout, Form, Card, Input, Upload, Button,message} from 'antd';
 import { Header,Navbar,Footer, displayNotification} from '../../miscellanous';
 import { UserContext } from '../../contexts';
 import { Redirect, useHistory } from 'react-router';
-import { PATHS,REQUEST_STATUS } from '../../strings';
+import { EMPLOYEE_MODES, PATHS,REQUEST_STATUS } from '../../strings';
 import { InboxOutlined } from '@ant-design/icons';
 import { ArticleService } from '../../services';
 import '../Panel/Panel.css';
@@ -29,17 +29,17 @@ const AddArticle = () =>
     const OnFinish = async values =>
     {
  
-        const {status,error} = await ArticleService.addArticle(values.title,values.abstract,values.article.file.originFileObj);
+        const {status,error} = await ArticleService.addArticle(values.title,values.abstract,values.poster.file.originFileObj,values.article.file.originFileObj);
         if(status === REQUEST_STATUS.SUCCESS)
         {
             displayNotification('success','Success','New article has been added successfully!');
-            history.push(PATHS.EMPLOYEES);
+            history.push(EMPLOYEE_MODES.find(({key})=>key==='view-articles').path);
         }
         else
         {
             console.log(error);
             displayNotification('error', 'Error', `${error}`);
-            history.push(PATHS.EMPLOYEES);
+            history.push(EMPLOYEE_MODES.find(({key})=>key==='view-articles').path);
         }
     }
 
@@ -72,7 +72,7 @@ const AddArticle = () =>
                             name="abstract"
                             rules={[{ required: true, message: 'Please put the abstract!' }]}
                         >
-                        <Input.TextArea/>
+                        <Input.TextArea maxLength={256}/>
                         </Form.Item>
                         <Form.Item
                             label="Article pdf"
@@ -86,6 +86,27 @@ const AddArticle = () =>
                             if(file.type !=='application/pdf')
                                 message.error('File extension needs to be .pdf',3);
                             return file.type === 'application/pdf' ? true : Upload.LIST_IGNORE;
+                        }
+                        }>
+                        <p className="ant-upload-drag-icon">
+                            <InboxOutlined />
+                        </p>
+                        <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                        </Upload.Dragger>
+                        </Form.Item>
+                        <Form.Item
+                            label="Article picture"
+                            name='poster'
+                            rules={[{ required: true, message: 'File is required!' }]}
+                            valuePropName="file"
+                            help="Extension must be of .png or .jpeg"
+                        >
+                        <Upload.Dragger name="files" multiple={false} maxCount={1} onChange={OnFileUploaded} customRequest={dummyRequest} beforeUpload={(file)=> 
+                        {
+                            if(!(file.type === 'image/png' || file.type === 'image/jpeg'))
+                                message.error('File must be of .png or .jpg extension',3);
+                            console.log(file.type);
+                            return (file.type === 'image/png' || file.type==='image/jpeg') ? true : Upload.LIST_IGNORE;
                         }
                         }>
                         <p className="ant-upload-drag-icon">

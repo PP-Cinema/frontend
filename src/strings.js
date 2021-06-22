@@ -80,6 +80,7 @@ export const EMPLOYEE_MODES =
     {key: "add-employee", value: "Add Employee", path: PATH(PATHS.EMPLOYEES,'add'), role: 'Admin', type: 'Employee'},
     {key: "view-employees", value: "View Employees", path: PATH(PATHS.EMPLOYEES,'manage'),role: 'Admin', type: 'Employee'},
     {key: "add-article", value: "New Article",path: PATH(PATHS.ARTICLES,'add'), role: 'Employee', type: 'Articles'},
+    {key: "view-articles", value: "View Articles", path: PATH(PATHS.ARTICLES,'manage'), role: 'Employee', type:'Articles'},
     {key: "add-movie", value: "New Movie", path: PATH(PATHS.MOVIES,'add'), role: 'Employee', type: 'Movies'},
     {key: "view-movies", value: "View Movies", path: PATH(PATHS.MOVIES,'manage'), role: 'Employee', type: 'Movies'},
     {key: "add-performance", value: "New Performance", path: PATH(PATHS.PERFORMANCES,'add'), role: 'Employee', type: 'Performances'},
