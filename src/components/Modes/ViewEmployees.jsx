@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { Redirect, useHistory } from 'react-router';
-import { Layout, Space, Card, Button, Popconfirm, message } from 'antd';
+import { Layout, Space, Card, Button, Popconfirm, message, Tooltip } from 'antd';
 import { Header, Navbar,Footer, displayNotification } from '../../miscellanous';
 import { UserContext } from '../../contexts';
 import { EMPLOYEE_MODES, PATHS, REQUEST_STATUS } from '../../strings';
@@ -58,9 +58,13 @@ const ViewEmployees = () =>
     else
     {
         const employeeCards = employees.map(a=> (<Card key={a.login} title={a.login} style={{display:'flex',justifyContent:'space-evenly'}}>
-            <Button type='primary' icon={<EditOutlined/>} disabled onClick={onEditClick}/>
+            <Tooltip title="Edit User" placement='left'>
+                <Button type='primary' icon={<EditOutlined/>} disabled onClick={onEditClick}/>
+            </Tooltip>
             <Popconfirm title='Are you sure you want to delete this user?' okText='Yes' cancelText='No' onCancel={() => message.info('Cancelled deleting',3)} onConfirm={()=> {onDeleteClick(a.id)}} >
-            <Button type='primary' danger icon={<DeleteOutlined/>} disabled={a.admin ? true : false} />
+                <Tooltip title="Delete User" placement='right'>
+                    <Button type='primary' danger icon={<DeleteOutlined/>} disabled={a.admin ? true : false} />
+                </Tooltip>
             </Popconfirm>
         </Card>));
         return(
