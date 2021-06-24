@@ -15,7 +15,7 @@ const Header = (props) =>
         content = 
         <div className='header'>
             <Space size='large'>
-                <Image src={logo} width='100%' height='110%' style={{cursor:'pointer'}} preview={false} onClick={() => history.push(PATHS.HOMEPAGE)}/>
+                <Image src={logo} width='100%' height='200%' style={{cursor:'pointer', paddingTop: 5, paddingBottom: 5}} preview={false} onClick={() => history.push(PATHS.HOMEPAGE)}/>
                 {HEADERS[0]}
             </Space>
         </div>
@@ -24,7 +24,7 @@ const Header = (props) =>
         content =
         <div className='header'>
             <Space size='large'>
-                <Image src={logo} width='100%' height='110%' style={{cursor:'pointer'}} preview={false} onClick={() => history.push(PATHS.HOMEPAGE)}/>
+                <Image src={logo} width='100%' height='200%' style={{cursor:'pointer', paddingTop: 5, paddingBottom: 5}} preview={false} onClick={() => history.push(PATHS.HOMEPAGE)}/>
                 {HEADERS[1]}
             </Space>
         </div>
@@ -33,7 +33,7 @@ const Header = (props) =>
         content =         
         <div className='header'>
             <Space size='large'>
-                <Image src={logo} width='100%' height='110%' style={{cursor:'pointer'}} preview={false} onClick={() => history.push(PATHS.EMPLOYEES)}/>
+                <Image src={logo} width='100%' height='200%' style={{cursor:'pointer', paddingTop: 5, paddingBottom: 5}} preview={false} onClick={() => history.push(PATHS.EMPLOYEES)}/>
                 {HEADERS[2]}
             </Space>
         </div>

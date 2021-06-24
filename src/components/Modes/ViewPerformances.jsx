@@ -17,6 +17,8 @@ const ViewPerformances = () =>
     const [movies,setMovies] = useState([]);
     const [movieSelected,setSelected] = useState(false);
     const [movieId, setId] = useState(0);
+    const [normalprice, setPrice] = useState(1);
+    const [discountprice, setDiscountPrice] = useState(1);
     let price = 0;
     const discount = 0.51;
 
@@ -128,17 +130,21 @@ const ViewPerformances = () =>
                                             name='normalPrice'
                                             rules={[{ required: true, message: 'Please set the normal ticket price!' }]}
                                         >
-                                            <InputNumber min={1} max={100} defaultValue={1}/>
+                                            <InputNumber min={1} max={100} defaultValue={1} onChange={setPrice}/>
                                         </Form.Item>
                                         <Form.Item
                                             label='Discount Price'
                                             name='discountPrice'
                                         >
-                                            <InputNumber defaultValue={1} min={1} max={100}/>
+                                            <InputNumber value={discountprice} defaultValue={discountprice} min={1} max={100}/>
                                         </Form.Item>
                                         <Form.Item>
                                         <Button type="primary" htmlType="submit">
                                             Add Performance
+                                        </Button>
+                                        <div style={{paddingTop: 10}}></div>
+                                        <Button type="primary" onClick={()=>{console.log(normalprice);setDiscountPrice(normalprice)}}>
+                                            Calculate discount price
                                         </Button>
                         </Form.Item>
                                     </Form>

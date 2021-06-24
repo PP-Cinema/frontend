@@ -91,7 +91,7 @@ export const EMPLOYEE_MODES =
 
 export const HEADERS = 
 [
-    "Superkino", 
-    "Superkino Employee Login Panel", 
-    "Superkino Employee Panel"
+    "KINOOO", 
+    "KINOOO Employee Login Panel", 
+    "KINOOO Employee Panel"
 ];
