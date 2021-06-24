@@ -3,7 +3,7 @@ import { Home,Login, Panel } from './components';
 import { UserContextProvider } from './contexts';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { PATHS,EMPLOYEE_MODES } from './strings';
-import { AddEmployee, AddArticle, AddMovie, ViewEmployees, ViewMovies, ViewArticles } from './components/Modes';
+import { AddEmployee, AddArticle, AddMovie, ViewEmployees, ViewMovies, ViewArticles, ViewPerformances } from './components/Modes';
 import { NewsPage, ArticlePage, MoviesPage, PerformancesPage, MoviePage } from './components/Pages';
 
 
@@ -58,6 +58,9 @@ const App = () => {
             </Route>
             <Route path={EMPLOYEE_MODES.find(({key})=> key==='view-movies').path}>
               <ViewMovies/>
+            </Route>
+            <Route path={EMPLOYEE_MODES.find(({key})=> key==='view-performances').path}>
+              <ViewPerformances/>
             </Route>
           </Switch>
         </BrowserRouter>

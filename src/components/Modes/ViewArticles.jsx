@@ -40,7 +40,7 @@ const ViewArticles = () =>
         const {status,error} = await ArticleService.deleteArticle(id);
         if(status === REQUEST_STATUS.SUCCESS)
         {
-            displayNotification('success','Success','Successfully deleted the user');
+            displayNotification('success','Success','Successfully deleted the article');
         }
         else
         {

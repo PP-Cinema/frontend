@@ -6,7 +6,8 @@ const CONTROLLERS =
     employees: "employees",
     articles: "articles",
     movies: "movies",
-    performances: "performances"
+    performances: "performances",
+    halls: "halls"
 }
 
 const URL = (controller,endpoint) =>
@@ -32,8 +33,8 @@ export const ENDPOINT =
     employees: URL(CONTROLLERS.employees,''),
     movies: URL(CONTROLLERS.movies,''),
     moviesAll: URL(CONTROLLERS.movies,'all'),
-    performances: URL(CONTROLLERS.performances,'')
-
+    performances: URL(CONTROLLERS.performances,''),
+    halls: URL(CONTROLLERS.halls,'all')
 }
 
 export const WWWROOT = 
@@ -74,7 +75,7 @@ export const PANEL_TYPES =
     { key: "Employee", name: "Manage Employees", defaultPath: PATH(PATHS.EMPLOYEES,'manage')},
     { key: "Articles", name: "Manage Articles", defaultPath: PATH(PATHS.ARTICLES,'manage')},
     { key: "Movies", name: "Manage Movies", defaultPath: PATH(PATHS.MOVIES,'manage')},
-    { key: "Performances", name: "Manage Performances", defaultPath: ''},
+    { key: "Performances", name: "Manage Performances", defaultPath: PATH(PATHS.PERFORMANCES,'manage')},
 ];
 
 export const EMPLOYEE_MODES =
@@ -85,8 +86,7 @@ export const EMPLOYEE_MODES =
     {key: "view-articles", value: "View Articles", path: PATH(PATHS.ARTICLES,'manage'), role: 'Employee', type:'Articles'},
     {key: "add-movie", value: "New Movie", path: PATH(PATHS.MOVIES,'add'), role: 'Employee', type: 'Movies'},
     {key: "view-movies", value: "View Movies", path: PATH(PATHS.MOVIES,'manage'), role: 'Employee', type: 'Movies'},
-    {key: "add-performance", value: "New Performance", path: PATH(PATHS.PERFORMANCES,'add'), role: 'Employee', type: 'Performances'},
-    {key: "delete-performance", value: "Remove Performance", path: PATH(PATHS.PERFORMANCES,'delete'), role: 'Employee', type: 'Performances'}
+    {key: "view-performances", value: "View Performances", path: PATH(PATHS.PERFORMANCES,'manage'), role: 'Employee', type: 'Performances'}
 ];
 
 export const HEADERS = 
