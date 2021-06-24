@@ -96,7 +96,7 @@ const Navbar = (props) =>
                     return;
                 const typeList = EMPLOYEE_MODES.filter(({type}) => type===pt.key);
                 const finalList = typeList.map((tl) => tl.role==='Employee' ? <Menu.Item key={tl.key}>{tl.value}</Menu.Item> : '');
-                employeeMenu.push(<SubMenu key={pt.key} title={pt.name}>
+                employeeMenu.push(<SubMenu key={pt.key} title={pt.name} onTitleClick={() => pt.defaultPath ? history.push(pt.defaultPath) :''}>
                     {finalList}
                 </SubMenu>)
             })

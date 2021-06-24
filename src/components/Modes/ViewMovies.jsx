@@ -40,7 +40,7 @@ const ViewMovies = () =>
         const {status,error} = await MovieService.deleteMovie(id);
         if(status === REQUEST_STATUS.SUCCESS)
         {
-            displayNotification('success','Success','Successfully deleted the user');
+            displayNotification('success','Success','Successfully deleted the movie');
         }
         else
         {
