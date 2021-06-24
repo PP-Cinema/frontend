@@ -50,7 +50,9 @@ export const PATHS =
     EMPLOYEES: "/employees",
     PERFORMANCES: "/performances",
     MOVIES: "/movies",
+    MOVIE_VIEW:"/movies/view",
     ARTICLES: "/articles",
+    ARTICLE_VIEW: "/articles/view",
     RESERVATIONS: "/reservations",
 };
 
@@ -69,10 +71,10 @@ export const HOME_KEYS =
 
 export const PANEL_TYPES =
 [
-    { key: "Employee", name: "Manage Employees" },
-    { key: "Articles", name: "Manage Articles"},
-    { key: "Movies", name: "Manage Movies"},
-    { key: "Performances", name: "Manage Performances"},
+    { key: "Employee", name: "Manage Employees", defaultPath: PATH(PATHS.EMPLOYEES,'manage')},
+    { key: "Articles", name: "Manage Articles", defaultPath: PATH(PATHS.ARTICLES,'manage')},
+    { key: "Movies", name: "Manage Movies", defaultPath: PATH(PATHS.MOVIES,'manage')},
+    { key: "Performances", name: "Manage Performances", defaultPath: ''},
 ];
 
 export const EMPLOYEE_MODES =

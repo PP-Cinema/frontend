@@ -26,6 +26,21 @@ class ArticleService
             return {status: REQUEST_STATUS.ERROR,error};
         }
     }
+    static async getArticle(id)
+    {
+        try
+        {
+            const res = await axios.get(ENDPOINT.articles+`/${id}`);
+            const data = res.data;
+            console.log(data);
+            return {status: REQUEST_STATUS.SUCCESS, data}
+        }
+        catch(error)
+        {
+            console.log(error);
+            return {status: REQUEST_STATUS.ERROR,error}
+        }
+    }
     static async getPages(page,items)
     {
         try

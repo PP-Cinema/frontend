@@ -63,7 +63,7 @@ const Navbar = (props) =>
             (
                 <Menu className = "navbar-menu" onClick={onClick} selectedKeys ={HOME_KEYS.find(({path}) => path===location.pathname) ? 
                 HOME_KEYS.find(({path}) => path===location.pathname).key 
-                 : HOME_KEYS[0].key} mode ="horizontal" theme="dark">
+                 : location.pathname===PATHS.HOMEPAGE ? HOME_KEYS[0].key : ''} mode ="horizontal" theme="dark">
                     {menuList}
                 </Menu>
             );
@@ -73,7 +73,7 @@ const Navbar = (props) =>
             PANEL_TYPES.forEach((pt) => {
                 const typeList = EMPLOYEE_MODES.filter(({type}) => type===pt.key);
                 const finalList = typeList.map((tl) => <Menu.Item key={tl.key}>{tl.value}</Menu.Item>)
-                adminMenu.push(<SubMenu key={pt.key} title={pt.name}>
+                adminMenu.push(<SubMenu key={pt.key} title={pt.name} onTitleClick={() => pt.defaultPath ? history.push(pt.defaultPath) :''}>
                     {finalList}
                 </SubMenu>)
             })

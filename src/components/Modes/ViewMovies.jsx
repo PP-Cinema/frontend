@@ -3,8 +3,8 @@ import { Redirect, useHistory } from "react-router";
 import { Navbar,Header,Footer, displayNotification } from "../../miscellanous";
 import { UserContext } from "../../contexts";
 import { PATHS, EMPLOYEE_MODES, REQUEST_STATUS } from "../../strings";
-import { Layout, Space, Card, Button, Popconfirm,message, Pagination } from "antd";
-import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
+import { Layout, Space, Card, Button, Popconfirm,message, Pagination, Tooltip } from "antd";
+import { DeleteOutlined, EditOutlined, PlusOutlined, TableOutlined } from "@ant-design/icons";
 import { MovieService } from "../../services";
 import '../Panel/Panel.css';
 
@@ -64,10 +64,19 @@ const ViewMovies = () =>
                 cover={<img src={m.posterFilePath} height={200} width={200} alt='Missing poster'/>}
                 actions={[
                     <Popconfirm title='Are you sure you want to delete this movie?' okText='Yes' cancelText='No' onCancel={() => message.info('Cancelled deleting',3)} onConfirm={()=> {onDeleteClick(m.id)}}>
-                        <DeleteOutlined key='delete' danger='true'/>
+                        <Tooltip title="Delete Movie" placement='bottom'>
+                            <DeleteOutlined key='delete' danger='true'/>
+                        </Tooltip>
                     </Popconfirm>,
-                    <EditOutlined key='edit'/>,
-                    <PlusOutlined key='performance'/>
+                    <Tooltip title='Edit Movie' placement='bottom'>
+                        <EditOutlined key='edit'/>
+                    </Tooltip>,
+                    <Tooltip title='Add Performance' placement='bottom'>
+                        <PlusOutlined key='performance'/>
+                    </Tooltip>,
+                    <Tooltip title='View Performances' placement='bottom'>
+                        <TableOutlined key='performances'/>
+                    </Tooltip>
                 ]}
                 >
                     <Meta title={m.title} style={{whiteSpace:'pre-wrap'}}description={`Length: ${m.length} \n ${m.abstract ? `${m.abstract}`: ''}`} />
@@ -77,7 +86,7 @@ const ViewMovies = () =>
             <Layout>
                 <Header type="Panel"/>
                 <Navbar type={role}/>
-                <Content className="content-layout" style={{display:'flex',alignItems:'flex-start', paddingTop: 50}}>
+                <Content className="content-layout" style={{display:'flex',alignItems:'flex-start', paddingTop: 50, paddingBottom: 50}}>
                     <Space size='large' wrap>
                         {movieCards ? movieCards : ''}
                         { page === totalCount ?
@@ -88,8 +97,8 @@ const ViewMovies = () =>
                             </Card> : ''
                         }
                     </Space>
-                    <Pagination style={{alignSelf:'flex-end'}} defaultCurrent={page} defaultPageSize={itemsPerPage} total={(totalCount)*itemsPerPage} onChange={async value=>{ setPage(value);}}/>
                 </Content>
+                <Pagination style={{alignSelf:'center'}} defaultCurrent={page} defaultPageSize={itemsPerPage} total={(totalCount)*itemsPerPage} onChange={async value=>{ setPage(value);}}/>
                 <Footer/>
             </Layout>
         );

@@ -1,9 +1,10 @@
 import './App.css';
-import {Home,Login, Panel} from './components';
+import { Home,Login, Panel } from './components';
 import { UserContextProvider } from './contexts';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import {PATHS,EMPLOYEE_MODES} from './strings';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { PATHS,EMPLOYEE_MODES } from './strings';
 import { AddEmployee, AddArticle, AddMovie, ViewEmployees, ViewMovies, ViewArticles } from './components/Modes';
+import { NewsPage, ArticlePage, MoviesPage, PerformancesPage, MoviePage } from './components/Pages';
 
 
 const App = () => {
@@ -13,16 +14,23 @@ const App = () => {
         <BrowserRouter>
           <Switch>
             <Route exact path={PATHS.HOMEPAGE}>
-              <Home />
+              {/*<Home />*/}
+              <PerformancesPage/>
             </Route>
             <Route exact path={PATHS.MOVIES}>
-
+              <MoviesPage />
+            </Route>
+            <Route path={PATHS.MOVIE_VIEW}>
+              <MoviePage/>
             </Route>
             <Route exact path={PATHS.ARTICLES}>
-
+              <NewsPage/>
+            </Route>
+            <Route path={PATHS.ARTICLE_VIEW}>
+              <ArticlePage/>
             </Route>
             <Route exact path={PATHS.PERFORMANCES}>
-
+              <PerformancesPage/>
             </Route>
             <Route exact path={PATHS.RESERVATIONS}>
               
