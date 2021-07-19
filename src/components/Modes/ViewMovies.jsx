@@ -69,13 +69,10 @@ const ViewMovies = () =>
                         </Tooltip>
                     </Popconfirm>,
                     <Tooltip title='Edit Movie' placement='bottom'>
-                        <EditOutlined key='edit'/>
-                    </Tooltip>,
-                    <Tooltip title='Add Performance' placement='bottom'>
-                        <PlusOutlined key='performance'/>
+                        <EditOutlined key='edit' disabled/>
                     </Tooltip>,
                     <Tooltip title='View Performances' placement='bottom'>
-                        <TableOutlined key='performances'/>
+                        <TableOutlined key='performances' onClick={()=> history.push(EMPLOYEE_MODES.find(em=>em.key==='view-performances').path)}/>
                     </Tooltip>
                 ]}
                 >

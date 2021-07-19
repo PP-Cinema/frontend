@@ -7,13 +7,13 @@ class MovieService
     {
         try
         {
-            let articleForm = new FormData();
-            articleForm.append('Title',title);
-            articleForm.append('Length',length);
-            articleForm.append('Abstract',abstract);
-            articleForm.append('Description',description);
-            articleForm.append('PosterFile',posterFile);
-            const result = await axios.post(ENDPOINT.movies,articleForm);
+            let movieForm = new FormData();
+            movieForm.append('Title',title);
+            movieForm.append('Length',length);
+            movieForm.append('Abstract',abstract);
+            movieForm.append('Description',description);
+            movieForm.append('PosterFile',posterFile);
+            const result = await axios.post(ENDPOINT.movies,movieForm);
             return {status: REQUEST_STATUS.SUCCESS, result};
         }
         catch(error)

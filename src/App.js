@@ -1,10 +1,10 @@
 import './App.css';
-import { Home,Login, Panel } from './components';
+import { Login, Panel } from './components';
 import { UserContextProvider } from './contexts';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { PATHS,EMPLOYEE_MODES } from './strings';
 import { AddEmployee, AddArticle, AddMovie, ViewEmployees, ViewMovies, ViewArticles, ViewPerformances } from './components/Modes';
-import { NewsPage, ArticlePage, MoviesPage, PerformancesPage, MoviePage } from './components/Pages';
+import { NewsPage, ArticlePage, MoviesPage, PerformancesPage, MoviePage, BookPage, ReservationsPage } from './components/Pages';
 
 
 const App = () => {
@@ -32,8 +32,11 @@ const App = () => {
             <Route exact path={PATHS.PERFORMANCES}>
               <PerformancesPage/>
             </Route>
+            <Route path={PATHS.PERFORMANCE_BOOK}>
+              <BookPage/>
+            </Route>
             <Route exact path={PATHS.RESERVATIONS}>
-              
+              <ReservationsPage/>
             </Route>
             <Route path={PATHS.LOGIN}>
               <Login />
@@ -61,6 +64,9 @@ const App = () => {
             </Route>
             <Route path={EMPLOYEE_MODES.find(({key})=> key==='view-performances').path}>
               <ViewPerformances/>
+            </Route>
+            <Route path={EMPLOYEE_MODES.find(({key})=> key==='delete-performances').path}>
+              
             </Route>
           </Switch>
         </BrowserRouter>

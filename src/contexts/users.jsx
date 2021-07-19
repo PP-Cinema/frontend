@@ -1,7 +1,8 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 import axios from "axios";
 import { UserService } from "../services";
 import { displayNotification } from "../miscellanous";
+import { ENDPOINT } from "../strings";
 
 
 const DefaultState =
@@ -21,6 +22,7 @@ const UserContext = React.createContext(DefaultState);
 
 const UserContextProvider = ({children}) => 
 {
+
     const [state,setState] = useState(DefaultState);
     const signIn = useCallback(async (login,password) => 
     {
@@ -52,6 +54,35 @@ const UserContextProvider = ({children}) =>
         setState(DefaultState);
         displayNotification('success','Success','Successfully signed out!');
     },[]);
+
+    const refresh = useCallback(async()=>
+    {
+        const accessToken = localStorage.getItem('accessToken');
+        const refreshToken = localStorage.getItem('refreshToken');
+        const {data} = await UserService.refresh(accessToken,refreshToken);
+        if(data)
+        {
+            localStorage.setItem('accessToken',data.accessToken);
+            localStorage.setItem('refreshToken',data.refreshToken);
+        }
+    },[])
+
+    useMemo(()=>{
+        axios.interceptors.response.use((response)=> response,async error=>{
+            const originalRequest = error.config;
+            if(error.response.status===401 && originalRequest.url.includes(ENDPOINT.refresh)) {
+                signOut()
+                return;
+            };
+            if(error.response.status===401) {
+                refresh();
+                originalRequest.headers.Authorization=`Bearer ${localStorage.getItem('accessToken')}`;
+                axios.defaults.headers.common.Authorization=`Bearer ${localStorage.getItem('accessToken')}`;
+                return axios(originalRequest);
+            }
+            throw error;
+        })
+    },[])
 
     return (
         <UserContext.Provider value={{...state,signIn,signOut}}>

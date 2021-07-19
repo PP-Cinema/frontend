@@ -2,13 +2,15 @@ import {Navbar, Footer, Header} from '../../miscellanous';
 import React, { useState, useEffect} from "react";
 import { Layout,Card,Space, Pagination,Tooltip} from "antd";
 import { MovieService } from "../../services";
-import { ArrowRightOutlined, PlusOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import '../Home/Home.css';
 import { useHistory } from 'react-router-dom';
 import { PATHS } from '../../strings';
+import moment from 'moment';
 
 const {Content} = Layout;
 const {Meta} = Card;
+
 
 const MoviesPage = () => {
 
@@ -16,7 +18,9 @@ const MoviesPage = () => {
     const [movies,setMovies] = useState([]);
     const [page,setPage] = useState(1);
     const [totalCount,setTotalCount] = useState(0);
+    const [display, setDisplay] = useState(false);
     const itemsPerPage = 4;
+    const today = moment();
 
     const getMovies = async()=>
     {
@@ -45,13 +49,38 @@ const MoviesPage = () => {
             actions={[
                 <Tooltip placement='bottom' title='View Movie'>
                     <ArrowRightOutlined key='view' onClick={ () => {movieShow(m.id)}}/>
-                </Tooltip>,
-                <Tooltip placement="bottom" title='Show Performances'>
-                    <PlusOutlined key='performances' />
+                </Tooltip>,            
+                !display ? <Tooltip placement="bottom" title='Show Today Performances'>
+                    <PlusOutlined key='performancesShow' onClick={()=>{setDisplay(!display)}}/>
+                </Tooltip> : <Tooltip placement='bottom' title='Hide Today Performances'>
+                        <MinusOutlined key='performancesHide' onClick={()=>{setDisplay(!display)}}/>
                 </Tooltip>
+    
             ]}
             >
                 <Meta title={m.title} style={{whiteSpace:'pre-wrap'}}description={`Duration: ${m.length} \n \n ${m.abstract}`} />
+                {display ? 
+                    <div style={{paddingTop:20}}>
+                    { 
+                        m.performances
+                            .filter(p => moment(new Date(Date.parse(p.date))).date() === today.date())
+                                .sort((a,b) => new Date(Date.parse(a.date)).getTime() - new Date(Date.parse(b.date)).getTime())
+                                    .map((p)=>
+                                    {
+                                        const date = new Date(Date.parse(p.date));
+                                        let hours = date.getHours();
+                                        let minutes = date.getMinutes();
+                                        hours = ("0" + hours).slice(-2);
+                                        minutes = ("0" + minutes).slice(-2);
+                                        return (
+                                        <Card.Grid hoverable={false} style={{boxShadow:'none', width:'15%'}}>
+                                            <a href={`${PATHS.PERFORMANCE_BOOK}?id=${p.id}`}>{`${hours}:${minutes}`}</a>
+                                        </Card.Grid>
+                                    )
+                                    })
+                    }
+                 </div> : ''    
+                }
         </Card>)) : '';
 
     return(

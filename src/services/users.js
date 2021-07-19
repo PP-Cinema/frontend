@@ -22,6 +22,18 @@ class UserService
             return {status: REQUEST_STATUS.ERROR, error};
         }
     }
+    static async refresh(accessToken,refreshToken)
+    {
+        try
+        {
+            const {data} = await axios.post(ENDPOINT.refresh,{accessToken,refreshToken});
+            return {status: REQUEST_STATUS.SUCCESS,data};
+        }
+        catch(error)
+        {
+
+        }
+    }
     static async createUser(login,password,isAdmin)
     {
         try

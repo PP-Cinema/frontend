@@ -1,3 +1,6 @@
+import { TableOutlined,SolutionOutlined,FieldTimeOutlined,CheckOutlined } from "@ant-design/icons";
+
+
 export const API_BASE_URL = "https://localhost:5001/api";
 const BASE_URL = "https://localhost:5001";
 
@@ -7,7 +10,8 @@ const CONTROLLERS =
     articles: "articles",
     movies: "movies",
     performances: "performances",
-    halls: "halls"
+    halls: "halls",
+    reservations: "reservations"
 }
 
 const URL = (controller,endpoint) =>
@@ -34,7 +38,9 @@ export const ENDPOINT =
     movies: URL(CONTROLLERS.movies,''),
     moviesAll: URL(CONTROLLERS.movies,'all'),
     performances: URL(CONTROLLERS.performances,''),
-    halls: URL(CONTROLLERS.halls,'all')
+    halls: URL(CONTROLLERS.halls,'all'),
+    reservations: URL(CONTROLLERS.reservations,''),
+    reservationsAll: URL(CONTROLLERS.reservations,'all')
 }
 
 export const WWWROOT = 
@@ -50,6 +56,7 @@ export const PATHS =
     LOGIN: "/login",
     EMPLOYEES: "/employees",
     PERFORMANCES: "/performances",
+    PERFORMANCE_BOOK: "/performances/book",
     MOVIES: "/movies",
     MOVIE_VIEW:"/movies/view",
     ARTICLES: "/articles",
@@ -86,7 +93,8 @@ export const EMPLOYEE_MODES =
     {key: "view-articles", value: "View Articles", path: PATH(PATHS.ARTICLES,'manage'), role: 'Employee', type:'Articles'},
     {key: "add-movie", value: "New Movie", path: PATH(PATHS.MOVIES,'add'), role: 'Employee', type: 'Movies'},
     {key: "view-movies", value: "View Movies", path: PATH(PATHS.MOVIES,'manage'), role: 'Employee', type: 'Movies'},
-    {key: "view-performances", value: "View Performances", path: PATH(PATHS.PERFORMANCES,'manage'), role: 'Employee', type: 'Performances'}
+    {key: "view-performances", value: "View Performances", path: PATH(PATHS.PERFORMANCES,'manage'), role: 'Employee', type: 'Performances'},
+    {key: "delete-performances", value: "Delete Performances", path: PATH(PATHS.PERFORMANCES,'delete'),role: 'Employee', type: 'Performances'},
 ];
 
 export const HEADERS = 
@@ -94,4 +102,24 @@ export const HEADERS =
     "KINOOO", 
     "KINOOO Employee Login Panel", 
     "KINOOO Employee Panel"
+];
+
+export const STEPS =
+[
+    {
+        title: 'Info',
+        icon: <FieldTimeOutlined/>
+    },
+    {
+        title: 'Choose Seats',
+        icon: <TableOutlined/>
+    },
+    {
+        title: 'Credentials',
+        icon: <SolutionOutlined/>
+    },
+    {
+        title: 'Confirm Reservation',
+        icon: <CheckOutlined/>
+    }
 ];
