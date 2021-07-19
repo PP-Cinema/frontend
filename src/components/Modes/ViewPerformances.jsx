@@ -5,6 +5,7 @@ import { PATHS, REQUEST_STATUS } from "../../strings";
 import { Navbar, Header,Footer, displayNotification } from "../../miscellanous";
 import { Layout, Select,Calendar,Card, Form, TimePicker, DatePicker, InputNumber, Button} from 'antd';
 import { MovieService, HallService, PerformanceService } from "../../services";
+import moment from "moment";
 import '../Panel/Panel.css';
 
 const {Content} = Layout
@@ -191,7 +192,14 @@ const ViewPerformances = () =>
                         <Card.Grid hoverable={false} style={{boxShadow:'none' ,width: '75%', minHeight: 800}} key="calendar">
                             {
                                 movieSelected ? 
-                                    <Calendar dateCellRender={dateCellRenderer} style={{maxWidth:900}}/> 
+                                    <Calendar 
+                                        dateCellRender={dateCellRenderer} 
+                                        style={{maxWidth:900}}
+                                        disabledDate={(date)=>
+                                            {
+                                                return date.isSameOrBefore(moment());
+                                            }}
+                                        /> 
                                 :''
                             }
                         </Card.Grid>

@@ -2,7 +2,7 @@ import { useHistory, useLocation } from "react-router"
 import React,{ useEffect, useState } from "react";
 import { MovieService } from "../../services";
 import { Layout, Button, Space, Typography, Card, Image, Select, DatePicker } from "antd";
-import { Header,Navbar,Footer } from "../../miscellanous";
+import { Header,Navbar,Footer,YoutubeEmbed } from "../../miscellanous";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { PATHS } from "../../strings";
 import '../Home/Home.css';
@@ -96,6 +96,7 @@ const MoviePage = () =>
                                 <Paragraph style={{fontSize: 'large'}}>
                                     {movie.description}
                                 </Paragraph>
+                                <YoutubeEmbed link='https://www.youtube.com/watch?v=d6hoxOKQOMI'/>
                             </Card.Grid>
                         </Card>
                     </div>

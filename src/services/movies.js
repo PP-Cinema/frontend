@@ -3,7 +3,7 @@ import { ENDPOINT, REQUEST_STATUS } from "../strings";
 
 class MovieService
 {
-    static async addMovie(title,length,abstract,description,posterFile)
+    static async addMovie(title,length,abstract,description,posterFile,trailer)
     {
         try
         {
@@ -13,6 +13,7 @@ class MovieService
             movieForm.append('Abstract',abstract);
             movieForm.append('Description',description);
             movieForm.append('PosterFile',posterFile);
+            movieForm.append('TrailerLink',trailer);
             const result = await axios.post(ENDPOINT.movies,movieForm);
             return {status: REQUEST_STATUS.SUCCESS, result};
         }

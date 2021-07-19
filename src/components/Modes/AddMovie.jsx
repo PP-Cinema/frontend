@@ -30,9 +30,7 @@ const AddMovie = () =>
     const OnFinish = async values => 
     {
         console.log(values);
-        if(!values.description) values.description='';
-        if(!values.abstract) values.abstract='';
-        const {status,error} = await MovieService.addMovie(values.title,values.length,values.abstract,values.description,values.poster.file.originFileObj);
+        const {status,error} = await MovieService.addMovie(values.title,values.length,values.abstract,values.description,values.poster.file.originFileObj,values.trailer);
         if(status === REQUEST_STATUS.SUCCESS)
         {
             displayNotification('success','Success','New movie has been added successfully');
@@ -58,7 +56,7 @@ const AddMovie = () =>
                 <Navbar type={role}/>
                 <Content className="content-layout">
                     <Card title="Add new movie" style={{width: 500}}>
-                        <Form style={{maxWidth: 400, margin: 25}} name="basic" onFinish={OnFinish}>
+                        <Form style={{maxWidth: 400, margin: 25}} name="basic" onFinish={OnFinish} initialValues={{'abstract':'','description':'','trailer':''}}>
                             <Form.Item 
                                 label="Title"
                                 name="title"
@@ -77,13 +75,19 @@ const AddMovie = () =>
                                 label="Abstract"
                                 name="abstract"
                             >
-                            <Input.TextArea defaultValue='' maxLength={80}/>
+                            <Input.TextArea maxLength={80}/>
                             </Form.Item>
                             <Form.Item 
                                 label="Description"
                                 name="description"
                             >
-                            <Input.TextArea defaultValue=''/>
+                            <Input.TextArea />
+                            </Form.Item>
+                            <Form.Item 
+                                label="Trailer Link"
+                                name="trailer"    
+                            >
+                            <Input/>
                             </Form.Item>
                             <Form.Item
                                 label="Poster image"
