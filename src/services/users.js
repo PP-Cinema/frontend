@@ -31,7 +31,8 @@ class UserService
         }
         catch(error)
         {
-
+            console.log(error);
+            return {status: REQUEST_STATUS.ERROR, error};
         }
     }
     static async createUser(login,password,isAdmin)

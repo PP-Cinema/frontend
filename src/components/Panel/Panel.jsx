@@ -26,7 +26,7 @@ const Panel = () =>
                 <Navbar type={role}/>
                 <Content>
                     <div className="main-panel">
-                        <Title type={2} style={{alignSelf:'flex-start',paddingTop:40}}>Welcome back!</Title>
+                        <Title level={2} style={{alignSelf:'flex-start',paddingTop:40}}>Welcome back!</Title>
                         <div style={{paddingBottom:20,paddingTop:200}}>
                         <Card bordered={false} style={{display:'flex',justifyContent:'center',width:800}}>
                         {

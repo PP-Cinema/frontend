@@ -96,7 +96,7 @@ const MoviePage = () =>
                                 <Paragraph style={{fontSize: 'large'}}>
                                     {movie.description}
                                 </Paragraph>
-                                <YoutubeEmbed link='https://www.youtube.com/watch?v=d6hoxOKQOMI'/>
+                                <YoutubeEmbed link={movie.trailerLink ? movie.trailerLink : ''}/>
                             </Card.Grid>
                         </Card>
                     </div>

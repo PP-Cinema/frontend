@@ -27,10 +27,22 @@ class PerformanceService
     {
         try
         {
-            console.log('dupa');
             const res = await axios.get(ENDPOINT.performances+`/${id}`);
             const data = res.data;
             return {status: REQUEST_STATUS.SUCCESS, data}
+        }
+        catch(error)
+        {
+            console.log(error)
+            return {status: REQUEST_STATUS.ERROR, error}
+        }
+    }
+    static async deletePerformance(id)
+    {
+        try
+        {
+            const res = await axios.delete(ENDPOINT.performances+`/${id}`);
+            return {status: REQUEST_STATUS.SUCCESS, res}
         }
         catch(error)
         {

@@ -3,7 +3,7 @@ import { Login, Panel } from './components';
 import { UserContextProvider } from './contexts';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { PATHS,EMPLOYEE_MODES } from './strings';
-import { AddEmployee, AddArticle, AddMovie, ViewEmployees, ViewMovies, ViewArticles, ViewPerformances } from './components/Modes';
+import { AddEmployee, AddArticle, AddMovie, ViewEmployees, ViewMovies, ViewArticles, ViewPerformances, DeletePerformances } from './components/Modes';
 import { NewsPage, ArticlePage, MoviesPage, PerformancesPage, MoviePage, BookPage, ReservationsPage } from './components/Pages';
 
 
@@ -66,7 +66,7 @@ const App = () => {
               <ViewPerformances/>
             </Route>
             <Route path={EMPLOYEE_MODES.find(({key})=> key==='delete-performances').path}>
-              
+              <DeletePerformances/>
             </Route>
           </Switch>
         </BrowserRouter>
