@@ -1,4 +1,5 @@
 import {Layout, Card} from 'antd';
+import { useEffect } from 'react';
 import {Footer,Header} from '../../miscellanous';
 import { LoginForm } from './LoginForm';
 import './Login.css';
@@ -8,6 +9,10 @@ const { Content} = Layout;
 
 const Login = () =>
 {
+
+    useEffect(() => {
+        document.title=process.env.REACT_APP_LOGIN_PAGE;
+     }, []);
     return(
         <Layout className ="layout">
             <Header type="Login"/>

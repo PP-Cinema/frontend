@@ -28,6 +28,7 @@ class MovieService
         try
         {
             const res = await axios.get(ENDPOINT.moviesAll);
+            console.log(res);
             const data = res.data;
             return {status: REQUEST_STATUS.SUCCESS, data}
         }

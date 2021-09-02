@@ -41,7 +41,7 @@ const ViewEmployees = () =>
         }
         else
         {
-            displayNotification('error', 'Error',`${error}`);
+            displayNotification('error', 'Error',`${error.response.data.message}`);
         }
         setRefresh({});
     }
@@ -49,7 +49,11 @@ const ViewEmployees = () =>
     useEffect(()=>
     {
         getEmployees();
-    },[refresh])
+    },[refresh]);
+
+    useEffect(() => {
+        document.title=process.env.REACT_APP_PANEL_PAGE;
+     }, []);
 
     if(!accessToken)
     {

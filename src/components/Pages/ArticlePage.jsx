@@ -23,6 +23,9 @@ const ArticlePage = () =>
     }
 
     useEffect(()=>{getArticle()},[location.state.articleId]);
+    useEffect(() => {
+        document.title=process.env.REACT_APP_MAIN_PAGE;
+     }, []);
 
     return(
         <Layout className = "layout">

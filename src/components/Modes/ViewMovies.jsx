@@ -44,12 +44,16 @@ const ViewMovies = () =>
         }
         else
         {
-            displayNotification('error', 'Error',`${error}`);
+            displayNotification('error', 'Error',`${error.response.data.message}`);
         }
         setRefresh({});
     }
 
     useEffect(() => {getCount(); getMovies()},[refresh,page]);
+
+    useEffect(() => {
+        document.title=process.env.REACT_APP_PANEL_PAGE;
+     }, []);
 
     if(!accessToken)
     {
@@ -83,9 +87,15 @@ const ViewMovies = () =>
             <Layout>
                 <Header type="Panel"/>
                 <Navbar type={role}/>
-                <Content className="content-layout" style={{display:'flex',alignItems:'flex-start', paddingTop: 50, paddingBottom: 50}}>
+                <Content className="content-layout" style={{display:'flex',alignItems:'center', paddingTop: 50, paddingBottom: 50}}>
                     <Space size='large' wrap>
-                        {movieCards ? movieCards : ''}
+                        {movieCards ? movieCards : 
+                            <Card key='Add new' bordered={false}>
+                                <Button type='dashed' icon={<PlusOutlined/>} onClick={() => history.push(EMPLOYEE_MODES.find(({key}) => key==='add-movie').path)}>
+                                    Add new movie
+                                </Button>
+                            </Card>
+                        }
                         { page === totalCount ?
                             <Card key='Add new' bordered={false}>
                                 <Button type='dashed' icon={<PlusOutlined/>} onClick={() => history.push(EMPLOYEE_MODES.find(({key}) => key==='add-movie').path)}>
@@ -95,7 +105,7 @@ const ViewMovies = () =>
                         }
                     </Space>
                 </Content>
-                <Pagination style={{alignSelf:'center'}} defaultCurrent={page} defaultPageSize={itemsPerPage} total={(totalCount)*itemsPerPage} onChange={async value=>{ setPage(value);}}/>
+                <Pagination style={{paddingTop:10, paddingBottom:5, alignSelf:'center'}} defaultCurrent={page} defaultPageSize={itemsPerPage} total={(totalCount)*itemsPerPage} onChange={async value=>{ setPage(value);}}/>
                 <Footer/>
             </Layout>
         );

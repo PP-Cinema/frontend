@@ -71,10 +71,10 @@ export const REQUEST_STATUS =
 }
 export const HOME_KEYS = 
 [
-    {key:"performances", value:"Seanse",path: PATH(PATHS.PERFORMANCES,'')},
-    {key:"articles", value:"Newsy", path: PATH(PATHS.ARTICLES,'')},
-    {key:"movies", value:"Filmy", path: PATH(PATHS.MOVIES,'')},
-    {key:"reservations", value:"Rezerwacje", path: PATH(PATHS.RESERVATIONS,'')}
+    {key:"performances", value:"Performances",path: PATH(PATHS.PERFORMANCES,'')},
+    {key:"articles", value:"News", path: PATH(PATHS.ARTICLES,'')},
+    {key:"movies", value:"Movies", path: PATH(PATHS.MOVIES,'')},
+    {key:"reservations", value:"Reservations", path: PATH(PATHS.RESERVATIONS,'')}
 ];
 
 export const PANEL_TYPES =

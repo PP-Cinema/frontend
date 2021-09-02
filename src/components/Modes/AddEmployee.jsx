@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext,useEffect} from 'react';
 import {Layout,Card, Form, Input, Button, Checkbox} from 'antd';
 import { Header,Navbar,Footer } from '../../miscellanous';
 import { UserContext } from '../../contexts';
@@ -13,6 +13,10 @@ const {Content} = Layout;
 const AddEmployee = () =>
 {
     const history = useHistory();
+
+    useEffect(() => {
+        document.title=process.env.REACT_APP_PANEL_PAGE;
+     }, []);
 
     const onFinish = async values =>
     {
@@ -29,7 +33,7 @@ const AddEmployee = () =>
         }
         else
         {
-             displayNotification('error','Error',`Request failure: ${error.message}`);
+             displayNotification('error','Error',`Request failure: ${error.response.data.message}`);
              history.push(EMPLOYEE_MODES.find(({key}) => key==='view-employees').path);
         }
     }

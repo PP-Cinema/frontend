@@ -1,5 +1,5 @@
 import { Layout, Card, Avatar, Space,Typography } from 'antd';
-import { useContext } from 'react';
+import { useContext,useEffect } from 'react';
 import { Redirect,useHistory } from 'react-router';
 import { Navbar, Footer, Header} from '../../miscellanous';
 import { UserContext} from '../../contexts';
@@ -14,9 +14,12 @@ const Panel = () =>
 {
     const {accessToken, role} = useContext(UserContext);
     const history = useHistory();
+    useEffect(() => {
+        document.title=process.env.REACT_APP_PANEL_PAGE;
+     }, []);
     if(!accessToken)
     {
-        return <Redirect to={PATHS.HOMEPAGE} />;
+        return <Redirect to={PATHS.LOGIN} />;
     }
     else
     {

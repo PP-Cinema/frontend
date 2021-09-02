@@ -40,6 +40,9 @@ const MoviesPage = () => {
     }
 
     useEffect(() => {getCount(); getMovies()},[page]);
+    useEffect(() => {
+        document.title=process.env.REACT_APP_MAIN_PAGE;
+     }, []);
 
     const movieCards = movies ? movies.map((m)=>(
         <Card
@@ -74,7 +77,7 @@ const MoviesPage = () => {
                                         minutes = ("0" + minutes).slice(-2);
                                         return (
                                         <Card.Grid hoverable={false} style={{boxShadow:'none', width:'15%'}}>
-                                            <a href={`${PATHS.PERFORMANCE_BOOK}?id=${p.id}`}>{`${hours}:${minutes}`}</a>
+                                            {moment(date).isAfter(today) ? <a href={`${PATHS.PERFORMANCE_BOOK}?id=${p.id}`}>{`${hours}:${minutes}`}</a> : <s>{`${hours}:${minutes}`}</s>}
                                         </Card.Grid>
                                     )
                                     })
@@ -94,7 +97,7 @@ const MoviesPage = () => {
                     </Space>
                 </div>
             </Content>
-            <Pagination style={{alignSelf:'center'}} defaultCurrent={page} defaultPageSize={itemsPerPage} total={(totalCount)*itemsPerPage} onChange={async value=>{ setPage(value);}}/>
+            <Pagination style={{paddingTop:10, paddingBottom:5, alignSelf:'center'}} defaultCurrent={page} defaultPageSize={itemsPerPage} total={(totalCount)*itemsPerPage} onChange={async value=>{ setPage(value);}}/>
             <Footer className="footer"/>
         </Layout>
     );

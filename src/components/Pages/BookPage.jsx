@@ -33,6 +33,9 @@ const BookPage = () =>
     }
 
     useEffect(()=>{if(!performance)getPerformance()},[location, step,seatsNum,seatsLeft]);
+    useEffect(() => {
+        document.title=process.env.REACT_APP_MAIN_PAGE;
+     }, []);
 
     const onFinish = values =>
     {
@@ -123,7 +126,7 @@ const BookPage = () =>
         }
         else
         {
-            displayNotification('error','Error',`${error}`);
+            displayNotification('error','Error',`${error.response.data.message}`);
             history.push(PATHS.HOMEPAGE);
         }
     }

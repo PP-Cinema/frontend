@@ -36,6 +36,9 @@ const NewsPage = () => {
     }
 
     useEffect(() => {getCount(); getArticles()},[page]);
+    useEffect(() => {
+        document.title=process.env.REACT_APP_MAIN_PAGE;
+     }, []);
 
     const articleCards = articles ? articles.map((a)=>(
         <Card
@@ -62,7 +65,7 @@ const NewsPage = () => {
                     </Space>
                 </div>
             </Content>
-            <Pagination style={{alignSelf:'center'}} defaultCurrent={page} defaultPageSize={itemsPerPage} total={(totalCount)*itemsPerPage} onChange={async value=>{ setPage(value);}}/>
+            <Pagination style={{paddingTop:10, paddingBottom:5, alignSelf:'center'}} defaultCurrent={page} defaultPageSize={itemsPerPage} total={(totalCount)*itemsPerPage} onChange={async value=>{ setPage(value);}}/>
             <Footer className="footer"/>
         </Layout>
     );

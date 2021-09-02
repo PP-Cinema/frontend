@@ -35,7 +35,7 @@ const ViewPerformances = () =>
         setMovies(data);
     }
     
-    const getPerformances = (value) =>
+    const getPerformances = value =>
     {
         let listData =[];
         const performances = movies.find((m)=> m.id === movieId)?.performances;
@@ -72,13 +72,13 @@ const ViewPerformances = () =>
         }
         else
         {
-            displayNotification('error','Error',`${error}`);
+            displayNotification('error','Error',`${error.response.data.message}`);
         }
 
         setRefresh({});
     }
 
-    const dateCellRenderer = (value) =>
+    const dateCellRenderer = value =>
     {
         let listData = getPerformances(value);
         return(
@@ -102,6 +102,10 @@ const ViewPerformances = () =>
         getMovies(); 
         if(halls.length === 0) getHalls();
     },[refresh]);
+
+    useEffect(() => {
+        document.title=process.env.REACT_APP_PANEL_PAGE;
+     }, []);
 
     if(!accessToken)
     {
@@ -197,7 +201,7 @@ const ViewPerformances = () =>
                                         style={{maxWidth:900}}
                                         disabledDate={(date)=>
                                             {
-                                                return date.isSameOrBefore(moment());
+                                                return date.isBefore(moment(),'day');
                                             }}
                                         /> 
                                 :''

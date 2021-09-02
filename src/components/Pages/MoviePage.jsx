@@ -35,6 +35,9 @@ const MoviePage = () =>
     }
 
     useEffect(()=>{getMovie()},[state,date]);
+    useEffect(() => {
+        document.title=process.env.REACT_APP_MAIN_PAGE;
+     }, []);
 
 
     const now = moment();
@@ -85,7 +88,10 @@ const MoviePage = () =>
                                                 let minutes = date.getMinutes();
                                                 hours = ("0" + hours).slice(-2);
                                                 minutes = ("0" + minutes).slice(-2);
-                                                return (<Card.Grid hoverable={false} style={{boxShadow:'none', width:'15%'}}><a href={`${PATHS.PERFORMANCE_BOOK}?id=${p.id}`}>{`${hours}:${minutes}`}</a></Card.Grid>)
+                                                return (
+                                                <Card.Grid hoverable={false} style={{boxShadow:'none', width:'15%'}}>
+                                                    {moment(date).isAfter(moment()) ? <a href={`${PATHS.PERFORMANCE_BOOK}?id=${p.id}`}>{`${hours}:${minutes}`}</a> : <s>{`${hours}:${minutes}`}</s>}
+                                                </Card.Grid>)
                                             })
                                         }
                                         </div>

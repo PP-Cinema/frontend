@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext,useEffect} from 'react';
 import {Layout, Form, Card, Input, Upload, Button,message} from 'antd';
 import { Header,Navbar,Footer, displayNotification} from '../../miscellanous';
 import { UserContext } from '../../contexts';
@@ -20,6 +20,10 @@ const AddArticle = () =>
     
     const history = useHistory();
 
+    useEffect(() => {
+        document.title=process.env.REACT_APP_PANEL_PAGE;
+     }, []);
+
     const dummyRequest = ({ file, onSuccess }) => {
         setTimeout(() => {
           onSuccess("ok");
@@ -38,7 +42,7 @@ const AddArticle = () =>
         else
         {
             console.log(error);
-            displayNotification('error', 'Error', `${error}`);
+            displayNotification('error', 'Error', `${error.response.data.message}`);
             history.push(EMPLOYEE_MODES.find(({key})=>key==='view-articles').path);
         }
     }
@@ -52,6 +56,7 @@ const AddArticle = () =>
     {
         return (<Redirect to={PATHS.HOMEPAGE}/>);
     }
+
 
     return(
         <Layout>
@@ -72,7 +77,7 @@ const AddArticle = () =>
                             name="abstract"
                             rules={[{ required: true, message: 'Please put the abstract!' }]}
                         >
-                        <Input.TextArea maxLength={256}/>
+                        <Input.TextArea maxLength={256} autoSize/>
                         </Form.Item>
                         <Form.Item
                             label="Article pdf"

@@ -19,7 +19,7 @@ class PerformanceService
         }
         catch(error)
         {
-            console.log(error);
+            console.log(error.response.data.message);
             return {status: REQUEST_STATUS.ERROR, error}
         }
     }

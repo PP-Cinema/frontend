@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext,useEffect} from 'react';
 import {Layout, Form, Card, Input, Upload, Button, InputNumber, message} from 'antd';
 import { Header,Navbar,Footer, displayNotification} from '../../miscellanous';
 import { UserContext } from '../../contexts';
@@ -15,6 +15,10 @@ const AddMovie = () =>
 {
     const {accessToken, role} = useContext(UserContext);
     const history = useHistory();
+
+    useEffect(() => {
+        document.title=process.env.REACT_APP_PANEL_PAGE;
+     }, []);
 
     const dummyRequest = ({ file, onSuccess }) => {
         setTimeout(() => {
@@ -39,7 +43,7 @@ const AddMovie = () =>
         else
         {
             console.log(error);
-            displayNotification('error','Error',`${error}`);
+            displayNotification('error','Error',`${error.response.data.message}`);
             history.push(EMPLOYEE_MODES.find(({key})=>key==='view-movies').path);
         }
     }
@@ -75,13 +79,13 @@ const AddMovie = () =>
                                 label="Abstract"
                                 name="abstract"
                             >
-                            <Input.TextArea maxLength={80}/>
+                            <Input.TextArea maxLength={80} autoSize/>
                             </Form.Item>
                             <Form.Item 
                                 label="Description"
                                 name="description"
                             >
-                            <Input.TextArea />
+                            <Input.TextArea autoSize/>
                             </Form.Item>
                             <Form.Item 
                                 label="Trailer Link"

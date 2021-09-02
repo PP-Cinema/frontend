@@ -32,6 +32,9 @@ const PerformancesPage = () => {
 
 
     useEffect(() => {getCount(); getMovies()},[page]);
+    useEffect(() => {
+        document.title=process.env.REACT_APP_MAIN_PAGE;
+     }, []);
 
     const movieCards = movies ? movies.map((m)=>(
         <Card
@@ -54,7 +57,7 @@ const PerformancesPage = () => {
                             minutes = ("0" + minutes).slice(-2);
                             return (
                                 <Card.Grid hoverable={false} style={{boxShadow:'none', width:'15%'}}>
-                                    {moment(pDate).isAfter(date) ? <a href={`${PATHS.PERFORMANCE_BOOK}?id=${p.id}`}>{`${hours}:${minutes}`}</a> : <s>{`${hours}:${minutes}`}</s>}
+                                    {moment(pDate).isAfter(moment()) ? <a href={`${PATHS.PERFORMANCE_BOOK}?id=${p.id}`}>{`${hours}:${minutes}`}</a> : <s>{`${hours}:${minutes}`}</s>}
                                 </Card.Grid>
                             )
                         }): ''
@@ -72,28 +75,28 @@ const PerformancesPage = () => {
             <Header type="Home"/>
             <Navbar type="Home"/>
             <Content style = {{ padding: '0 50px', display:'flex',alignItems:'flex-start',justifyContent:'center', paddingTop: 50, paddingBottom: 50 }}>
-                <div className="content-layout">
-                        <div style={{paddingTop:20, alignSelf:'flex-start'}}>
-                            <DatePicker
-                                disabledDate={(current)=> {
-                                        const tooEarly = now && current.diff(now,'d') > 6;
-                                        const tooLate = weekLater && weekLater.diff(current,'d') > 7;
-                                        return tooEarly || tooLate
-                                        }
-                                }
-                                onChange={(values)=>{values ? setDate(values) : setDate(now)}}
-                                defaultPickerValue={now}
-                                defaultValue={now}
-                                size = 'large'
-                            />
+                <div className="reservations-layout">
+                        <div style={{paddingTop:20,alignSelf:'flex-start',paddingLeft:50}}>
+                                <DatePicker
+                                    disabledDate={(current)=> {
+                                            const tooEarly = now && current.diff(now,'d') > 6;
+                                            const tooLate = weekLater && weekLater.diff(current,'d') > 7;
+                                            return tooEarly || tooLate
+                                            }
+                                    }
+                                    onChange={(values)=>{values ? setDate(values) : setDate(now)}}
+                                    defaultPickerValue={now}
+                                    defaultValue={now}
+                                    size = 'large'
+                                />
                         </div>
-                    <Row gutter={[24,64]}>
+                    <Row gutter={[24,64]} style={{paddingTop: 200,paddingLeft:150,paddingRight:100,minWidth:1200}}>
                         {firstHalfMovies}
                         {secondHalfMovies}
                     </Row>
                 </div>
             </Content>
-            <Pagination style={{alignSelf:'center'}} defaultCurrent={page} defaultPageSize={itemsPerPage} total={(totalCount)*itemsPerPage} onChange={async value=>{ setPage(value);}}/>
+            <Pagination style={{paddingTop:10, paddingBottom:5, alignSelf:'center'}} defaultCurrent={page} defaultPageSize={itemsPerPage} total={(totalCount)*itemsPerPage} onChange={async value=>{ setPage(value);}}/>
             <Footer className="footer"/>
         </Layout>
     );

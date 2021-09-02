@@ -1,4 +1,4 @@
-import { Layout,Input,Modal,List,Typography, Tooltip, Popconfirm,message, Button,Card } from "antd";
+import { Layout,Input,Modal,List,Typography, Tooltip, Popconfirm,message, Button,Card,Empty } from "antd";
 import { CloseOutlined,EnterOutlined } from "@ant-design/icons";
 import { Footer,Navbar,Header,displayNotification } from "../../miscellanous";
 import React, { useState, useEffect} from "react";
@@ -30,7 +30,10 @@ const ReservationsPage = () =>
         setModalVisible(true);
     }
 
-    useEffect(()=>{if(userValidated) GetReservations(); console.log('render')},[refresh])
+    useEffect(()=>{if(userValidated) GetReservations(); console.log('render')},[refresh]);
+    useEffect(() => {
+        document.title=process.env.REACT_APP_MAIN_PAGE;
+     }, []);
 
 
     const GetReservations = async()=>
@@ -65,7 +68,7 @@ const ReservationsPage = () =>
         }
         else
         {
-            displayNotification('error','Error',`${error}`);
+            displayNotification('error','Error',`${error.response.data.message}`);
         }
     }
 
@@ -152,6 +155,9 @@ const ReservationsPage = () =>
                                     <p style={{textAlign:'right',fontWeight:'bolder',fontSize:22}}>{`Final price: ${(reservation.normalTickets*reservation.performance.normalPrice + reservation.discountedTickets*reservation.performance.discountedPrice)} PLN`}</p>
                                 </Card>
                             )
+                        }
+                        {
+                            reservations.length === 0 && (<Empty description={email ? "No reservations for given email" : "To find reservation please put your email"}/>)
                         }
                     </div>
 

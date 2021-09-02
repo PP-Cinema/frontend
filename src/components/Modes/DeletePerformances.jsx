@@ -44,6 +44,11 @@ const DeletePerformances = () =>
     {
         getMovies(); 
     },[refresh]);
+
+    useEffect(() => {
+        document.title=process.env.REACT_APP_PANEL_PAGE;
+     }, []);
+
     if(!accessToken)
     {
         return <Redirect to={PATHS.HOMEPAGE} />;
@@ -89,6 +94,7 @@ const DeletePerformances = () =>
                                 itemLayout='horizontal'
                                 renderItem={item=>
                                     {
+                                        console.log(item);
                                         return(
                                         <List.Item 
                                         >
