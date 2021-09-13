@@ -1,0 +1,7 @@
+export {default as NewsPage} from './NewsPage.jsx'
+export {default as ArticlePage} from './ArticlePage.jsx'
+export {default as MoviesPage} from './MoviesPage.jsx'
+export {default as PerformancesPage} from './PerformancesPage.jsx'
+export {default as MoviePage} from './MoviePage.jsx'
+export {default as BookPage} from './BookPage.jsx'
+export {default as ReservationsPage} from './ReservationsPage'

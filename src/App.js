@@ -1,23 +1,76 @@
-import logo from './logo.svg';
 import './App.css';
+import { Login, Panel } from './components';
+import { UserContextProvider } from './contexts';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { PATHS,EMPLOYEE_MODES } from './strings';
+import { AddEmployee, AddArticle, AddMovie, ViewEmployees, ViewMovies, ViewArticles, ViewPerformances, DeletePerformances } from './components/Modes';
+import { NewsPage, ArticlePage, MoviesPage, PerformancesPage, MoviePage, BookPage, ReservationsPage } from './components/Pages';
 
-function App() {
+
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <UserContextProvider>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path={PATHS.HOMEPAGE}>
+              {/*<Home />*/}
+              <PerformancesPage/>
+            </Route>
+            <Route exact path={PATHS.MOVIES}>
+              <MoviesPage />
+            </Route>
+            <Route path={PATHS.MOVIE_VIEW}>
+              <MoviePage/>
+            </Route>
+            <Route exact path={PATHS.ARTICLES}>
+              <NewsPage/>
+            </Route>
+            <Route path={PATHS.ARTICLE_VIEW}>
+              <ArticlePage/>
+            </Route>
+            <Route exact path={PATHS.PERFORMANCES}>
+              <PerformancesPage/>
+            </Route>
+            <Route path={PATHS.PERFORMANCE_BOOK}>
+              <BookPage/>
+            </Route>
+            <Route exact path={PATHS.RESERVATIONS}>
+              <ReservationsPage/>
+            </Route>
+            <Route path={PATHS.LOGIN}>
+              <Login />
+            </Route>
+            <Route exact path={PATHS.EMPLOYEES}>
+              <Panel />
+            </Route>
+            <Route path={EMPLOYEE_MODES.find(({key}) => key==='add-employee').path}>
+              <AddEmployee />
+            </Route>
+            <Route path={EMPLOYEE_MODES.find(({key})=> key==='view-employees').path}>
+              <ViewEmployees/>
+            </Route>
+            <Route path={EMPLOYEE_MODES.find(({key})=> key==='add-article').path}>
+              <AddArticle/>
+            </Route>
+            <Route path={EMPLOYEE_MODES.find(({key})=> key==='view-articles').path}>
+              <ViewArticles/>
+            </Route> 
+            <Route path ={EMPLOYEE_MODES.find(({key})=> key==='add-movie').path}>
+              <AddMovie/>
+            </Route>
+            <Route path={EMPLOYEE_MODES.find(({key})=> key==='view-movies').path}>
+              <ViewMovies/>
+            </Route>
+            <Route path={EMPLOYEE_MODES.find(({key})=> key==='view-performances').path}>
+              <ViewPerformances/>
+            </Route>
+            <Route path={EMPLOYEE_MODES.find(({key})=> key==='delete-performances').path}>
+              <DeletePerformances/>
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </UserContextProvider>
     </div>
   );
 }
